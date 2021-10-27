@@ -1,7 +1,7 @@
 {
-  "name": "pantheon-quicksilver/quicksilver-template",
-  "description": "A template for creating new Quicksilver scripts installed via Composer.",
-  "homepage": "https://github.com/pantheon-quicksilver/quicksilver-template",
+  "name": "pantheon-quicksilver/cloudflare-cache",
+  "description": "Composer-installable script to purge Cloudflare cache when your live environment's cache is cleared",
+  "homepage": "https://github.com/pantheon-quicksilver/cloudflare-cache",
   "authors": [],
   "type": "quicksilver-script",
   "require": {

@@ -1,19 +1,13 @@
-# Quicksilver Template
+# Cloudflare Cache #
 
-This is template for new Quicksilver projects to utilize so that Quicksilver scripts can be installed through Composer.
+This composer-installable example demonstrates how to purge Cloudflare cache when your live environment's cache is cleared.
 
-## Requirements
-
-While these scripts can be downloaded individually, they are meant to work with Composer. See the installation in the next section.
-
-- Quicksilver script projects and the script name itself should be consistent in naming convention.
-- README should include a recommendation for types of hooks and stages that the script should run on.
-  - For example, "This script should run on `clone_database` and the `after` stage.
-  - Provide a snippet that can be pasted into the `pantheon.yml` file.
+## TODO
+- Quicksilver script projects and the script name itself should be consistent in naming convention. - To rename after demonstrated working with existing filenames (underscores)
 
 ### Installation
 
-This project is designed to be included from a site's `composer.json` file, and placed in its appropriate installation directory by [Composer Installers](https://github.com/composer/installers).
+While it's possible to use the script individually, this project is designed to be included from a site's `composer.json` file, and placed in its appropriate installation directory by [Composer Installers](https://github.com/composer/installers).
 
 In order for this to work, you should have the following in your composer.json file:
 
@@ -36,6 +30,19 @@ The project can be included by using the command, where `{quicksilver-project}` 
 
 If you are using one of the example PR workflow projects ([Drupal 8](https://www.github.com/pantheon-systems/example-drops-8-composer), [Drupal 9](https://www.github.com/pantheon-systems/drupal-project), [WordPress](https://www.github.com/pantheon-systems/example-wordpress-composer)) as a starting point for your site, these entries should already be present in your `composer.json`.
 
+
+## Setup ##
+
+- Copy `cloudflare_cache.json` to `files/private` of the *live* environment after updating it with your cloudflare info.
+ - API key can be found in the `My Settings` page on the Cloudflare site.
+ - I couldn't find zone id in the UI. I viewed page source on the overview page and found it printed in JavaScript.
+- Add the example `cloudflare_cache.php` script to the `private/scripts` directory of your code repository.
+- Add a Quicksilver operation to your `pantheon.yml` to fire the script after a deploy.
+- Deploy through to the live environment and clear the cache!
+
+Optionally, you may want to use the `terminus workflows watch` command to get immediate debugging feedback.
+
+
 ### Example `pantheon.yml`
 
 Here's an example of what your `pantheon.yml` would look like if this were the only Quicksilver operation you wanted to use.
@@ -44,9 +51,11 @@ Here's an example of what your `pantheon.yml` would look like if this were the o
 api_version: 1
 
 workflows:
-  sync_code:
+  clear_cache:
     after:
       - type: webphp
-        description: Run Quicksilver script
-        script: private/scripts/quicksilver/pantheon-quicksilver/quicksilver-template.php
+        description: Cloudflare Cache
+        script: private/scripts/cloudflare_cache.php
 ```
+
+Note that you will almost always want to clear your CDN cache with the _after_ timing option. Otherwise you could end up with requests re-caching stale content. Caches should generally be cleared "bottom up".
