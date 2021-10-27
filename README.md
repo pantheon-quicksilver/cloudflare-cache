@@ -33,10 +33,10 @@ If you are using one of the example PR workflow projects ([Drupal 8](https://www
 
 ## Setup ##
 
-- Copy `cloudflare_cache.json` to `files/private` of the *live* environment after updating it with your cloudflare info.
+- Copy `cloudflare-cache.json` to `files/private` of the *live* environment after updating it with your cloudflare info.
  - API key can be found in the `My Settings` page on the Cloudflare site.
  - I couldn't find zone id in the UI. I viewed page source on the overview page and found it printed in JavaScript.
-- Add the example `cloudflare_cache.php` script to the `private/scripts` directory of your code repository.
+- Add the example `cloudflare-cache.php` script to the `private/scripts` directory of your code repository.
 - Add a Quicksilver operation to your `pantheon.yml` to fire the script after a deploy.
 - Deploy through to the live environment and clear the cache!
 
@@ -55,7 +55,7 @@ workflows:
     after:
       - type: webphp
         description: Cloudflare Cache
-        script: private/scripts/cloudflare_cache.php
+        script: private/scripts/cloudflare-cache.php
 ```
 
 Note that you will almost always want to clear your CDN cache with the _after_ timing option. Otherwise you could end up with requests re-caching stale content. Caches should generally be cleared "bottom up".

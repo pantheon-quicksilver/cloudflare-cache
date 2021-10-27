@@ -10,7 +10,7 @@
   },
   "extra": {
     "pantheon-quicksilver": {
-      "cloudflare_cache": [
+      "cloudflare-cache": [
         {
           "wf_type": "clear_cache",
           "stage": "after",
