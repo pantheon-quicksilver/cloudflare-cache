@@ -5,7 +5,19 @@
   "authors": [],
   "type": "quicksilver-script",
   "require": {
-    "composer/installers": "~1.0"
+    "composer/installers": "^1 || ^2",
+    "pantheon-quicksilver/pantheon-yml-editor": "dev-main"
+  },
+  "extra": {
+    "pantheon-quicksilver": {
+      "cloudflare_cache": [
+        {
+          "wf_type": "clear_cache",
+          "stage": "after",
+          "weight": 1
+        }
+      ]
+    }
   },
   "license": "MIT"
 }
