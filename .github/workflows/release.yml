@@ -22,9 +22,9 @@ jobs:
         run: |
           composer --no-interaction --no-progress --prefer-dist install
 
-      - name: Publish to Packagist
-        run: |
-          php .github/scripts/release.php
+      # - name: Publish to Packagist
+      #   run: |
+      #     php .github/scripts/release.php
 
       - name: Create Changelog
         id: changelog
